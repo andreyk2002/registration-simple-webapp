@@ -1,0 +1,35 @@
+﻿@model registration_simple_webapp.Models.ViewModels.LoginModel
+@*
+
+*@
+@{
+    Layout = "_Layout";
+}
+
+<body class="text-center">
+    <h2>Login Page</h2>
+
+    <form class="form-signin" asp-action="Login" asp-controller="Account" asp-anti-forgery="true">
+        <img class="mb-4" src="~/lib/bootstrap/bootstrap-icons-1.1.0/key-fill.svg" alt="" width="72" height="72">
+        <div class="validation w-25" asp-validation-summary="ModelOnly" style="color:red"></div>        
+        <label asp-for="Email" class="sr-only">Email address</label>
+        <input asp-for="Email" type="email" id="inputEmail" class="form-control" placeholder="Email address"
+               required autofocus>
+        <label asp-for="Password" class="sr-only">Password</label>
+        <input asp-for="Password" type="password" id="inputPassword" class="form-control"
+               placeholder="Password" required>
+        <div class="mb-3">
+            <label>
+                Haven't got an account?
+                You can register <a asp-area="" asp-controller="Account" asp-action="Register">here</a>
+            </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">
+            Sign in
+        </button>
+
+    </form>
+</body>
+
+
+
