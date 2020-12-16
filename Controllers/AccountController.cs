@@ -1,4 +1,4 @@
-﻿
+
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
@@ -64,17 +64,18 @@ namespace registration_simple_webapp.Controllers
         public async Task<IActionResult> Register(RegisterModel model)
         {
             if (ModelState.IsValid) 
-                await FindOrAddUserAsync(model);
+                return await FindOrAddUserAsync(model);
             return View(model);
         }
 
-        private async Task FindOrAddUserAsync(RegisterModel model)
+        private async Task<IActionResult> FindOrAddUserAsync(RegisterModel model)
         {
             User user = await db.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
             if (user == null)
-                await AddUserAsync(model);
+                return await AddUserAsync(model);
             else
-                ModelState.AddModelError("", "Account with email" + model.Email + "already exists");
+                ModelState.AddModelError("", "Account with email " + model.Email + " already exists");
+            return View(model);
         }
 
         private async Task<RedirectToActionResult> AddUserAsync(RegisterModel model)
@@ -96,5 +97,3 @@ namespace registration_simple_webapp.Controllers
               
     }
 }
-
-
